@@ -1,0 +1,42 @@
+
+
+<div class="card">
+    <h5 class="card-header">Home - Country Details</h5>
+    <div class="card-body p-0">
+        
+        <table class="table table-striped mb-0">
+            <tbody>
+                <tr>
+                    <th style="width: 50%" scope="row">Country Name</th>
+                    <td style="width: 50%"> {{ country && country.name ? country.name : '-'  }} </td>
+                </tr>
+                <tr>
+                    <th scope="row">Capital</th>
+                    <td>{{ country && country.capital ? country.capital : '-'  }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Region</th>
+                    <td>{{ country && country.region ? country.region : '-'  }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Sub Region</th>
+                    <td>{{ country && country.subregion ? country.subregion : '-'  }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Population</th>
+                    <td>{{ country && country.population ? country.population : '-'  }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Area</th>
+                    <td>{{ country && country.area ? country.area : '-'  }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Alpha3Code</th>
+                    <td>{{ country && country.alpha3Code ? country.alpha3Code : '-'  }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
