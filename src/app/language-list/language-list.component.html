@@ -2,12 +2,12 @@
 
 
 <div class="card">
-    <h5 class="card-header">Language List {{ (languages) ? '' : ' - Please select a country' }}</h5>
+    <h5 class="card-header">Language List</h5>
     <div class="card-body p-0">
         
         <table class="table table-striped mb-0">
-            <tbody>
-                <tr *ngFor="let language of languages">
+            <tbody *ngIf="country && country.languages">
+                <tr *ngFor="let language of country.languages">
                     <th style="width: 50%" scope="row">{{ language.name }}</th>
                     <td style="width: 50%"> {{ language.nativeName }} </td>
                 </tr>

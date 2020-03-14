@@ -1,7 +1,7 @@
 
 
 <div class="card">
-    <h5 class="card-header">Currencies {{ (Currencies) ? '' : ' - Please select a country' }}</h5>
+    <h5 class="card-header">Currencies</h5>
     <div class="card-body p-0">
         
         <table class="table table-striped mb-0">
@@ -12,8 +12,8 @@
                     <th style="width: 33.33%" scope="col">Symbol</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr *ngFor="let currency of currencies">
+            <tbody *ngIf="country && country.currencies">
+                <tr *ngFor="let currency of country.currencies">
                     <th style="width: 33.33%" scope="row">{{ currency.code }}</th>
                     <td style="width: 33.33%"> {{ currency.name }} </td>
                     <td style="width: 33.33%"> {{ currency.symbol }} </td>

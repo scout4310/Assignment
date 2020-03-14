@@ -13,10 +13,13 @@
 
       <div class="dropdown">
         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-          {{ selectedCountryName ? 'Country : ' + selectedCountryName : 'Select a country' }}
+          {{ selectedCountry && selectedCountry.name ? 'Country : ' + selectedCountry.name : 'Select a country' }}
+          <div class="spinner-border spinner-border-sm text-light ml-2 mr-2" role="status" *ngIf="loading">
+            <span class="sr-only">Loading...</span>
+          </div>
         </button>
         <div class="dropdown-menu scrollable-menu">
-          <a *ngFor="let country of countries" class="dropdown-item" (click)="setCountry(country.name,country.alpha3Code)">{{ country.name }}</a>
+          <a *ngFor="let country of countries" class="dropdown-item" (click)="setCountry(country.alpha3Code)">{{ country.name }}</a>
         </div>
       </div>
 

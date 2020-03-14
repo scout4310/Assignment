@@ -13,7 +13,7 @@ import { CountryDetailsComponent } from './country-details/country-details.compo
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'Home/CountryDetails/null',
+    redirectTo: 'Home/CountryDetails',
     pathMatch: 'full'
   },
   {
@@ -26,16 +26,21 @@ export const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'CountryDetails/:alpha3Code',
+        path: 'CountryDetails',
         component: CountryDetailsComponent
       },
       {
-        path: 'LanguageList/:alpha3Code',
+        path: 'LanguageList',
         loadChildren: () => import('./language-list/language-list.module').then(m => m.LanguageListModule)
       },
       {
-        path: 'CurrencyList/:alpha3Code',
+        path: 'CurrencyList',
         loadChildren: () => import('./currency-list/currency-list.module').then(m => m.CurrencyListModule)
+      },
+      {
+        path: '**',
+        redirectTo: 'CountryDetails',
+        pathMatch: 'full'
       },
     ]
   },

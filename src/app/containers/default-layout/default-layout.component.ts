@@ -1,7 +1,8 @@
 import {Component, OnInit } from '@angular/core';
-import { CountriesServiceService } from '../../countries-service.service';
+import { CountriesServiceService, Country } from '../../countries-service.service';
 import { ActivatedRoute, Router, Routes } from '@angular/router';
 import { INavData } from '@coreui/angular';
+import { navItems } from '../../_nav';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,70 +11,29 @@ import { INavData } from '@coreui/angular';
 export class DefaultLayoutComponent implements OnInit {
   public sidebarMinimized = false;
   public countries: any;
-  public selectedCountryCode: string;
-  public selectedCountryName: string;
-  public selectedRoute: string;
-  public navItems: INavData[];
+  public selectedCountry: Country;
+  public navItems = navItems;
+  public loading = false;
 
   constructor(private countryService: CountriesServiceService, private router: Router, private route: ActivatedRoute) {
+    this.countryService.currentCountry.subscribe((country) => {
+      this.selectedCountry = country;
+      this.loading = false;
+    });
   }
 
   ngOnInit(): void {
     this.countryService.getCountryList().subscribe((res) => {
       this.countries = res;
     });
-    this.updateNavRoutes();
-  }
-
-  updateNavRoutes() {
-    if (this.selectedCountryCode) {
-      this.navItems = [
-        {
-          name: 'Home',
-          url: '/Home/CountryDetails/' + this.selectedCountryCode,
-          icon: 'icon-drop'
-        },
-        {
-          name: 'Language List',
-          url: '/Home/LanguageList/' + this.selectedCountryCode,
-          icon: 'icon-drop'
-        },
-        {
-          name: 'Currency List',
-          url: '/Home/CurrencyList/' + this.selectedCountryCode,
-          icon: 'icon-drop'
-        },
-      ];
-    } else {
-      this.navItems = [
-        {
-          name: 'Home',
-          url: '/Home/CountryDetails/null',
-          icon: 'icon-drop'
-        },
-        {
-          name: 'Language List',
-          url: '/Home/LanguageList/null',
-          icon: 'icon-drop'
-        },
-        {
-          name: 'Currency List',
-          url: '/Home/CurrencyList/null',
-          icon: 'icon-drop'
-        },
-      ];
-    }
-    console.log(this.navItems);
   }
 
   toggleMinimize(e) {
     this.sidebarMinimized = e;
   }
 
-  setCountry(countryName: string, countryCode: string, ): void {
-    this.selectedCountryCode = countryCode;
-    this.selectedCountryName = countryName;
-    this.updateNavRoutes();
-    this.router.navigate([this.router.url.substr(0, this.router.url.length - 4) + '/', this.selectedCountryCode]);
+  setCountry(countryCode: string ): void {
+    this.loading = true;
+    this.countryService.setSelectedCountry(countryCode);
   }
 }

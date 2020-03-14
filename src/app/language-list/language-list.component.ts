@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CountriesServiceService } from '../countries-service.service';
-import { Country } from '../country-details/country-details.component';
+import { CountriesServiceService, Country } from '../countries-service.service';
 
 @Component({
   selector: 'app-language-list',
@@ -10,20 +9,16 @@ import { Country } from '../country-details/country-details.component';
 })
 export class LanguageListComponent implements OnInit {
 
-  private languages: any[];
+  private country: Country;
 
-  constructor(private route: ActivatedRoute, private countryService: CountriesServiceService) { }
+  constructor(private route: ActivatedRoute, private countryService: CountriesServiceService) {
+    this.countryService.currentCountry.subscribe((country) => {
+      this.country = country;
+    });
+  }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const args = (<any>params);
-      if (args.params && args.params.alpha3Code && args.params.alpha3Code !== 'null') {
-        this.countryService.getCountryDetailsByCode(args.params.alpha3Code)
-        .subscribe((res) => {
-            this.languages = (<any>res).languages;
-        });
-      }
-    });
+    this.country = this.countryService.country;
   }
 
 }
